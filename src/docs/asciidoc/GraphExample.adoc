@@ -1,0 +1,77 @@
+= Graphen
+
+
+== Beispiel 1
+
+.Binärbaum2
+[graphviz, dot-distance-example-1, svg]
+----
+digraph g {
+	rankdir=LR;
+	C -> E [label="50",weight="50"]
+	D -> E [label="250",weight="250"]
+	D -> B [label="100",weight="100"]
+	A -> D [label="50",weight="50"]
+	A -> B [label="100",weight="100"]
+	B -> C [label="100",weight="100"]
+	B -> E [label="250",weight="250"]
+}
+----
+
+== Beispiel 2
+.Binärbaum2
+[graphviz, dot-distance-example-2, svg]
+----
+digraph g {
+    rankdir=LR;
+    B -> D [label="12",weight="12"]
+    B -> F [label="15",weight="15"]
+    A -> B [label="10",weight="10"]
+    A -> C [label="15",weight="15"]
+    C -> E [label="10",weight="10"]
+    D -> E [label="2",weight="2"]
+    D -> F [label="1",weight="1"]
+    F -> E [label="5",weight="5"]
+}
+----
+
+== Beispiel 3
+
+[ditaa,target=diagram-ditaa,format=svg]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+
+== Beispiel 4
+
+[plantuml, target=diagram-classes, format=svg]   
+....
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....
+
+== Links
+
+- https://docs.asciidoctor.org/diagram-extension/latest/
+

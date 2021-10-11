@@ -1,0 +1,45 @@
+plugins {
+    id 'org.asciidoctor.jvm.pdf' version '3.2.0'
+    id 'org.asciidoctor.jvm.gems' version '3.2.0'
+    id 'org.asciidoctor.jvm.convert' version '3.2.0'
+    id 'org.asciidoctor.jvm.revealjs' version '3.2.0'
+}
+
+apply plugin: 'java'
+
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    jcenter()
+    ruby {
+        gems()
+    }
+}
+
+dependencies {
+    asciidoctorGems 'rubygems:asciidoctor-diagram:2.0.1'
+    asciidoctorGems 'rubygems:asciidoctor:2.0.10'
+    asciidoctorGems 'rubygems:asciimath:1.0.9'
+    asciidoctorGems 'rubygems:rouge:3.15.0'
+}
+
+asciidoctorPdf {
+
+    baseDirFollowsSourceFile()
+
+    asciidoctorj {
+            requires 'rouge', 'asciidoctor-diagram', 'asciimath'
+            attributes 'build-gradle': file('build.gradle'),
+                    'sourcedir': project.sourceSets.main.java.srcDirs[0],
+                    'endpoint-url': 'http://example.org',
+                    'source-highlighter': 'rouge',
+                    'imagesdir': 'images',
+                    'toc': 'left',
+                    'stem': 'asciimath',
+                    'icons': 'font',
+                    'idprefix': '',
+                    'idseparator': '-'
+    }
+    dependsOn asciidoctorGemsPrepare
+}
+build.dependsOn asciidoctorPdf
