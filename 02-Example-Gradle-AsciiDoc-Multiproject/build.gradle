@@ -1,10 +1,10 @@
-
 plugins {
     id("org.asciidoctor.jvm.pdf") version "3.3.+"
     id("org.asciidoctor.jvm.gems") version "3.3.+"
     id("org.asciidoctor.jvm.convert") version "3.3.+"
     id("org.asciidoctor.jvm.epub") version '3.3.+'
     id("org.asciidoctor.jvm.revealjs") version "3.3.+"
+    id 'distribution'  // Variante-III
 }
 
 subprojects {
@@ -21,6 +21,7 @@ subprojects {
         mavenCentral()
     }
 
+    // Variante-II:
     configurations {
         artifacts
     }
@@ -28,8 +29,7 @@ subprojects {
     asciidoctor {
         dependsOn asciidoctorGemsPrepare
         baseDirFollowsSourceFile()
-        //outputDir  file('build/docs/Tom')
-        outputDir  file("${rootProject.buildDir}/docs/Tom")
+        // Variante-I: outputDir  file("${rootProject.buildDir}/docs/HTML")
         attributes \
             'build-gradle': file('build.gradle'),
             'sourcedir': project.sourceSets.main.java.srcDirs[0],
@@ -46,7 +46,7 @@ subprojects {
     asciidoctorEpub {
         dependsOn asciidoctorGemsPrepare
         ebookFormats EPUB3
-
+        // Variante-I: outputDir  file("${rootProject.buildDir}/docs/EPUB")
         attributes += [
             'build-gradle': file('build.gradle'),
             // Required to place image in project root.
@@ -58,7 +58,7 @@ subprojects {
         dependsOn asciidoctorGemsPrepare
 
         baseDirFollowsSourceFile()
-
+        // Variante-I: outputDir file("${rootProject.buildDir}/docs/PDF")
         asciidoctorj {
             requires 'rouge'
             attributes 'build-gradle': file('build.gradle'),
@@ -73,16 +73,23 @@ subprojects {
         }
     }
 
+    // Variante-II:
     artifacts {
-        archives fileTree('build/libs') // Passe den Pfad entsprechend an
+        archives(asciidoctorPdf.outputDir) {
+            builtBy asciidoctorPdf
+        }
+        archives(asciidoctorEpub.outputDir) {
+            builtBy asciidoctorEpub
+         }
+        archives(asciidoctor.outputDir) {
+            builtBy asciidoctor
+        }
     }
 
     asciidoctor.dependsOn asciidoctorPdf, asciidoctorEpub
 
     build.dependsOn  asciidoctor
-
 }
-
 
 task openPDF(type: Exec) {
     commandLine  "bash", "-c", "find . -name '*.pdf' -exec okular {} +"
@@ -98,10 +105,33 @@ task open() {
     dependsOn openHTML, openPDF
 }
 
+
+// Variante-II:
 task aggregateArtifacts(type: Copy) {
     from subprojects.collect { project ->
         project.configurations.archives.artifacts.files
     }
-    into file('build/aggregate') // Zielordner
+    into file('build/aggregate')
 }
 
+// Variante-III:
+distributions {
+    main {
+        distributionBaseName = project.name
+        distributionClassifier = 'classifier'
+        version = project.version
+
+        contents {
+            from(subprojects.collect { it.tasks.getByName('assemble') })
+            from(subprojects.collect { it.tasks.getByName('asciidoctorPdf') }, {
+                into "pdf"
+            })
+            from(subprojects.collect { it.tasks.getByName('asciidoctorEpub') }, {
+                into "epub"
+            })
+            from(subprojects.collect { it.tasks.getByName('asciidoctor') }, {
+                into "html"
+            })
+        }
+    }
+}
