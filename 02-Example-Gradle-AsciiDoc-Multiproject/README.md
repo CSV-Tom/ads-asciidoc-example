@@ -1,48 +1,48 @@
 # AsciiDoctor Gradle Multiproject
 
-Dieses Repository ist ein Template-Projekt für die Erstellung von Dokumentationen in den Formaten EPUB, HTML und PDF mithilfe der AsciiDoctor-Syntax. Das Projekt ist als AsciiDoctor Gradle Multiproject strukturiert und enthält mehrere Subprojekte, die als Beispiele für Bücher und Artikel dienen.
+This repository is a template project for creating documentation in EPUB, HTML, and PDF formats using the AsciiDoctor syntax. The project is structured as an AsciiDoctor Gradle Multiproject and includes multiple subprojects serving as examples for books and articles.
 
-## Inhalte
+## Contents
 
-Das Template bietet eine vorbereitete Ordnerstruktur und Konfiguration, um das Erstellen von Dokumentationen mit AsciiDoctor und Gradle zu erleichtern. Die Hauptinhalte des Projekts sind:
+The template provides a prepared folder structure and configuration to facilitate the creation of documentation using AsciiDoctor and Gradle. The main contents of the project are:
 
-- Vorlagen für Bücher und Artikel: Die Subprojekte dienen als Vorlagen, die du nutzen kannst, um deine eigenen Dokumentationen zu erstellen. Du kannst die vorhandenen Subprojekte als Ausgangspunkt nehmen und sie an deine spezifischen Anforderungen anpassen.
+- Templates for books and articles: The subprojects serve as templates that you can use to create your own documentation. You can start with the existing subprojects and customize them to meet your specific requirements.
 
-- Beispielinhalte: Die Subprojekte enthalten bereits Beispieldateien und -inhalte, um dir den Einstieg zu erleichtern. Du kannst diese Inhalte bearbeiten oder eigene Inhalte hinzufügen, um deine Dokumentation zu gestalten.
+- Sample content: The subprojects already contain example files and content to help you get started. You can edit these contents or add your own to shape your documentation.
 
-## Verwendung
+## Usage
 
-Um das Template-Projekt zu nutzen, kannst du es klonen und die Inhalte anpassen, um deine eigene Dokumentation zu erstellen. Die vorhandenen Subprojekte dienen als Ausgangspunkt und können nach Bedarf erweitert oder angepasst werden. Du kannst auch neue Subprojekte hinzufügen, um weitere Dokumentationen zu erstellen.
+To use the template project, you can clone it and customize the contents to create your own documentation. The existing subprojects serve as a starting point and can be extended or modified as needed. You can also add new subprojects to create additional documentation.
 
-## Bauen
+## Building
 
-Um das Projekt zu bauen, führe einen der folgenden Befehle aus:
+To build the project, execute one of the following commands:
 
 ```bash
 ./gradlew build --parallel
 ./gradlew build --continuous
 ```
 
-Diese Befehle kompilieren das Projekt und generieren die Dokumentationen in den verschiedenen Formaten.
+These commands will compile the project and generate the documentation in different formats.
 
-## Bereitstellung
+## Deployment
 
-Es gibt verschiedene Möglichkeiten, das Projekt bereitzustellen:
+There are several ways to deploy the project:
 
-1. **Variante I**: Du kannst das Projekt mit dem Befehl `./gradlew build` kompilieren und die generierten Artefakte im `build`-Verzeichnis finden. Du kannst den `outputDir`-Parameter in der Konfiguration anpassen, um den Ausgabeort zu steuern.
+1. **Option I**: You can compile the project using the `./gradlew build` command and find the generated artifacts in the `build` directory. You can customize the `outputDir` parameter in the configuration to control the output location.
 
-2. **Variante II**: Der Befehl `./gradlew aggregateArtifacts` sammelt die Artefakte aller Subprojekte und legt sie an einem zentralen Ort ab. Du kannst den Zielordner für die aggregierten Artefakte in der Gradle-Konfiguration anpassen.
+2. **Option II**: The `./gradlew aggregateArtifacts` command collects the artifacts from all subprojects and places them in a central location. You can customize the target folder for the aggregated artifacts in the Gradle configuration.
 
-3. **Variante III**: Mit den Befehlen `./gradlew distTar`, `./gradlew distZip` und `./gradlew installDist` kannst du das Projekt als Distribution verpacken und bereitstellen. Diese Befehle erstellen Archive oder installieren das Projekt als Distribution.
+3. **Option III**: By using the commands `./gradlew distTar`, `./gradlew distZip`, and `./gradlew installDist`, you can package and deploy the project as a distribution. These commands create archives or install the project as a distribution.
 
-## Kommunikation
+## Communication
 
-Wir freuen uns über dein Interesse an diesem Projekt! Wenn du Fragen hast oder Verbesserungsvorschläge einbringen möchtest, kannst du gerne die Issues nutzen oder uns per E-Mail kontaktieren.
+We appreciate your interest in this project! If you have any questions or suggestions for improvement, please feel free to use the issue tracker or contact us via email.
 
-Lasst uns großartige Dokumentationen erstellen!
+Let's create great documentation together!
 
-*Hinweis: Dieses README.md dient lediglich als Beispiel und kann entsprechend den Anforderungen und Besonderheiten deines eigenen Projekts angepasst werden.*
+*Note: This README.md serves as an example and can be customized according to the requirements and specifics of your own project.*
 
-Quellen:
-- AsciiDoctor-Dokumentation: [https://asciidoctor.org/docs/](https://asciidoctor.org/docs/)
-- Gradle-Dokumentation: [https://docs.gradle.org/](https://docs.gradle.org/)
+Sources:
+- AsciiDoctor Documentation: [https://asciidoctor.org/docs/](https://asciidoctor.org/docs/)
+- Gradle Documentation: [https://docs.gradle.org/](https://docs.gradle.org/)
