@@ -1,0 +1,107 @@
+
+plugins {
+    id("org.asciidoctor.jvm.pdf") version "3.3.+"
+    id("org.asciidoctor.jvm.gems") version "3.3.+"
+    id("org.asciidoctor.jvm.convert") version "3.3.+"
+    id("org.asciidoctor.jvm.epub") version '3.3.+'
+    id("org.asciidoctor.jvm.revealjs") version "3.3.+"
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'org.asciidoctor.jvm.convert'
+    apply plugin: 'org.asciidoctor.jvm.gems'
+    apply plugin: 'org.asciidoctor.jvm.pdf'
+    apply plugin: 'org.asciidoctor.jvm.epub'
+
+    version = '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        artifacts
+    }
+
+    asciidoctor {
+        dependsOn asciidoctorGemsPrepare
+        baseDirFollowsSourceFile()
+        //outputDir  file('build/docs/Tom')
+        outputDir  file("${rootProject.buildDir}/docs/Tom")
+        attributes \
+            'build-gradle': file('build.gradle'),
+            'sourcedir': project.sourceSets.main.java.srcDirs[0],
+            'endpoint-url': 'http://example.org',
+            'imagesdir': 'images',
+            'toc': 'left',
+            'icons': 'font',
+            'setanchors': '',
+            'idprefix': '',
+            'idseparator': '-',
+            'docinfo': 'shared'
+    }
+
+    asciidoctorEpub {
+        dependsOn asciidoctorGemsPrepare
+        ebookFormats EPUB3
+
+        attributes += [
+            'build-gradle': file('build.gradle'),
+            // Required to place image in project root.
+            'imagesoutdir': '../../../images'
+        ]
+    }
+
+    asciidoctorPdf {
+        dependsOn asciidoctorGemsPrepare
+
+        baseDirFollowsSourceFile()
+
+        asciidoctorj {
+            requires 'rouge'
+            attributes 'build-gradle': file('build.gradle'),
+                'sourcedir': sourceSets.main.java.srcDirs[0],
+                'endpoint-url': 'http://example.org',
+                'source-highlighter': 'rouge',
+                'imagesdir': './images',
+                'toc': 'left',
+                'icons': 'font',
+                'idprefix': '',
+                'idseparator': '-'
+        }
+    }
+
+    artifacts {
+        archives fileTree('build/libs') // Passe den Pfad entsprechend an
+    }
+
+    asciidoctor.dependsOn asciidoctorPdf, asciidoctorEpub
+
+    build.dependsOn  asciidoctor
+
+}
+
+
+task openPDF(type: Exec) {
+    commandLine  "bash", "-c", "find . -name '*.pdf' -exec okular {} +"
+    dependsOn build
+}
+
+task openHTML(type: Exec) {
+    commandLine  "bash", "-c", "find . -name '*.html' -exec firefox {} +"
+    dependsOn build
+}
+
+task open() {
+    dependsOn openHTML, openPDF
+}
+
+task aggregateArtifacts(type: Copy) {
+    from subprojects.collect { project ->
+        project.configurations.archives.artifacts.files
+    }
+    into file('build/aggregate') // Zielordner
+}
+

@@ -1,0 +1,29 @@
+/*plugins {
+    id("org.asciidoctor.jvm.pdf") version "3.3.+"
+    id("org.asciidoctor.jvm.gems") version "3.3.+"
+    id("org.asciidoctor.jvm.convert") version "3.3.+"
+}
+
+    apply plugin: 'java'
+
+    asciidoctorPdf {
+        dependsOn asciidoctorGemsPrepare
+
+        baseDirFollowsSourceFile()
+
+        asciidoctorj {
+            requires 'rouge'
+            attributes 'build-gradle': file('build.gradle'),
+                'sourcedir': sourceSets.main.java.srcDirs[0],
+                'endpoint-url': 'http://example.org',
+                'source-highlighter': 'rouge',
+                'imagesdir': './images',
+                'toc': 'left',
+                'icons': 'font',
+                'idprefix': '',
+                'idseparator': '-'
+        }
+    }
+
+    asciidoctor.dependsOn asciidoctorPdf
+    */

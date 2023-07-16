@@ -1,0 +1,22 @@
+:example-caption!:
+:source-highlighter: highlight.js
+:imagesdir: images
+:sectnums:
+:toc: auto
+:toclevels: 5
+:toc-title: Inhaltsverzeichnis
+
+:projectRootDir: ../../../..
+
+= Globales Buch
+
+include::{projectRootDir}/BookA/src/docs/asciidoc/Book-A.adoc[leveloffset=+1]
+
+include::{projectRootDir}/BookB/src/docs/asciidoc/Book-B.adoc[leveloffset=+1]
+
+
+include::{projectRootDir}/ArticleA/src/docs/asciidoc/Article-A.adoc[leveloffset=+1]
+
+include::{projectRootDir}/ArticleB/src/docs/asciidoc/Article-B.adoc[leveloffset=+1]
+
+

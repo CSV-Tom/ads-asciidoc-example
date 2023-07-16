@@ -59,7 +59,7 @@ digraph g {
 
 == Beispiel 4
 
-[plantuml, target=diagram-classes, format=svg]   
+[plantuml, target=diagram-classes, format=svg]
 ....
 class BlockProcessor
 class DiagramBlock
